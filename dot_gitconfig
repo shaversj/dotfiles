@@ -1,0 +1,7 @@
+[core]
+	excludesfile = /Users/wu36/.gitignore
+[user]
+	name = Josh Shavers
+	email = shaversj@gmail.com
+[init]
+	defaultBranch = main

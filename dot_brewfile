@@ -1,0 +1,56 @@
+########################################
+# 🍺 Core Command Line Tools
+########################################
+
+brew "git"
+brew "jq"
+brew "tree"
+brew "bitwarden-cli"
+brew "chezmoi"
+brew "mas"             # App Store CLI
+
+########################################
+# 🧠 Runtime & Version Managers
+########################################
+
+brew "asdf"            # Language version manager
+brew "nvm"             # Node.js version manager
+
+########################################
+# 🖥 Terminal & Window Enhancements
+########################################
+
+cask "ghostty"         # GPU-accelerated terminal
+cask "alt-tab"         # Window switcher (like Windows)
+
+########################################
+# 🌐 Web Browsers
+########################################
+
+cask "google-chrome"
+cask "firefox"
+
+########################################
+# 🧑‍💻 Developer IDEs
+########################################
+
+cask "intellij-idea"
+cask "visual-studio-code"
+cask "android-studio"
+cask "rancher"         # Kubernetes cluster manager
+
+########################################
+# 🎨 Frontend & Design Tools
+########################################
+
+cask "pixelsnap"       # UI pixel measurement
+cask "figma"           # Design tool
+mas "System Color Picker", id: 1545870783
+
+########################################
+# 🧰 Mac App Store Applications
+########################################
+
+mas "Xcode", id: 497799835
+mas "Bitwarden", id: 1352778147
+mas "Magnet", id: 441258766

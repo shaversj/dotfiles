@@ -43,16 +43,13 @@ else
   ok "nvm already installed"
 fi
 
-# Ensure NVM directory exists
 mkdir -p "$HOME/.nvm"
-
-# Load nvm into current session
 export NVM_DIR="$HOME/.nvm"
-# shellcheck disable=SC1091
+export NVM_SYMLINK_CURRENT=true
 [ -s "/opt/homebrew/opt/nvm/nvm.sh" ] && \. "/opt/homebrew/opt/nvm/nvm.sh"
 
 # -------------------------
-# Install Node (LTS)
+# Install Node.js LTS
 # -------------------------
 info "Installing latest LTS version of Node.js..."
 nvm install --lts
@@ -61,9 +58,20 @@ nvm alias default 'lts/*'
 ok "Node.js $(node -v) installed via nvm"
 
 # -------------------------
-# Install Core Tools
+# Install Bitwarden CLI via npm
 # -------------------------
-core_packages=(git bitwarden-cli chezmoi)
+if ! command -v bw &>/dev/null; then
+  info "Installing bitwarden-cli via npm..."
+  npm install -g @bitwarden/cli
+  ok "bitwarden-cli installed"
+else
+  ok "bitwarden-cli already installed"
+fi
+
+# -------------------------
+# Install Core Packages (excluding bitwarden-cli)
+# -------------------------
+core_packages=(git chezmoi)
 
 install_if_missing() {
   local pkg="$1"

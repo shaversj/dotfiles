@@ -5,7 +5,6 @@
 brew "git"
 brew "jq"
 brew "tree"
-brew "bitwarden-cli"
 brew "chezmoi"
 brew "mas"             # App Store CLI
 

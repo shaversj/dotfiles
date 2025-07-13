@@ -12,8 +12,6 @@ RESET="\033[0m"
 info()    { echo -e "${YELLOW}→ $1${RESET}"; }
 ok()      { echo -e "${GREEN}✓ $1${RESET}"; }
 fail()    { echo -e "${RED}✖ $1${RESET}"; }
-success() { echo -e "${GREEN}✓ $1${RESET}"; }
-error()   { echo -e "${RED}✖ $1${RESET}"; }
 
 # -------------------------
 # Install Homebrew
@@ -44,11 +42,11 @@ install_if_missing() {
   local pkg="$1"
   echo "Processing: $pkg"
   if brew list "$pkg" &>/dev/null; then
-    success "$pkg already installed"
+    ok "$pkg already installed"
   else
     info "Installing $pkg..."
     brew install "$pkg"
-    success "$pkg installed"
+    ok "$pkg installed"
   fi
 }
 
@@ -72,8 +70,6 @@ if echo "$BW_STATUS" | grep -q '"status": "unauthenticated"'; then
     fail "Bitwarden login failed"
     exit 1
   fi
-
-  # Refresh status after login
   BW_STATUS=$(bw status --raw)
 fi
 
@@ -96,3 +92,14 @@ fi
 info "Initializing chezmoi..."
 chezmoi init --apply https://github.com/shaversj/dotfiles.git
 ok "chezmoi initialized and dotfiles applied"
+
+# -------------------------
+# Switch dotfiles remote to SSH
+# -------------------------
+CHEZMOI_SRC=$(chezmoi source-path)
+cd "$CHEZMOI_SRC"
+
+info "Switching chezmoi git remote to SSH..."
+git remote set-url origin git@github.com:shaversj/dotfiles.git
+
+ok "Git remote updated to SSH: $(git remote get-url origin)"

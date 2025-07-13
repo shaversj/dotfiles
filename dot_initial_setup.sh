@@ -21,7 +21,6 @@ if ! command -v brew &>/dev/null; then
   info "Installing Homebrew..."
   NONINTERACTIVE=1 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 
-  # Load shellenv for Apple Silicon or Intel
   if [[ -d /opt/homebrew ]]; then
     eval "$(/opt/homebrew/bin/brew shellenv)"
   elif [[ -d /usr/local/Homebrew ]]; then
@@ -32,6 +31,34 @@ if ! command -v brew &>/dev/null; then
 else
   ok "Homebrew already installed"
 fi
+
+# -------------------------
+# Install NVM via Homebrew
+# -------------------------
+if ! brew list nvm &>/dev/null; then
+  info "Installing nvm via Homebrew..."
+  brew install nvm
+  ok "nvm installed"
+else
+  ok "nvm already installed"
+fi
+
+# Ensure NVM directory exists
+mkdir -p "$HOME/.nvm"
+
+# Load nvm into current session
+export NVM_DIR="$HOME/.nvm"
+# shellcheck disable=SC1091
+[ -s "/opt/homebrew/opt/nvm/nvm.sh" ] && \. "/opt/homebrew/opt/nvm/nvm.sh"
+
+# -------------------------
+# Install Node (LTS)
+# -------------------------
+info "Installing latest LTS version of Node.js..."
+nvm install --lts
+nvm use --lts
+nvm alias default 'lts/*'
+ok "Node.js $(node -v) installed via nvm"
 
 # -------------------------
 # Install Core Tools
@@ -101,5 +128,4 @@ cd "$CHEZMOI_SRC"
 
 info "Switching chezmoi git remote to SSH..."
 git remote set-url origin git@github.com:shaversj/dotfiles.git
-
 ok "Git remote updated to SSH: $(git remote get-url origin)"

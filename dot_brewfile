@@ -26,6 +26,7 @@ brew "starship"        		# Terminal Theme: https://github.com/starship/starship
 brew "zsh-autosuggestions"	# oh-my-zsh plugin
 brew "zsh-syntax-highlighting"	# oh-my-zsh plugin
 brew "zsh-completions"		# oh-my-zsh plugin	
+brew "bat"			# cat replacement
 
 ########################################
 # 🌐 Web Browsers

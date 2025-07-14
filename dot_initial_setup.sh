@@ -14,6 +14,37 @@ ok()      { echo -e "${GREEN}✓ $1${RESET}"; }
 fail()    { echo -e "${RED}✖ $1${RESET}"; }
 
 # -------------------------
+# Check current shell
+# -------------------------
+if [[ "$SHELL" != */zsh ]]; then
+  fail "Current shell is not zsh: $SHELL"
+  echo "Switch to zsh with: chsh -s $(which zsh) && exec zsh"
+  exit 1
+fi
+
+# -------------------------
+# Check for oh-my-zsh
+# -------------------------
+if [[ -d "$HOME/.oh-my-zsh" ]]; then
+  ok "oh-my-zsh already installed"
+else
+  info "Installing oh-my-zsh..."
+
+  export RUNZSH=no  # don't auto-launch shell
+  export KEEP_ZSHRC=yes  # preserve any existing config
+
+  # Run install script silently
+  sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+
+  if [[ -d "$HOME/.oh-my-zsh" ]]; then
+    ok "oh-my-zsh installed"
+  else
+    fail "oh-my-zsh installation failed"
+    exit 1
+  fi
+fi
+
+# -------------------------
 # Install Homebrew
 # -------------------------
 info "Checking for Homebrew..."

@@ -19,8 +19,13 @@ brew "nvm"             # Node.js version manager
 # 🖥 Terminal & Window Enhancements
 ########################################
 
-cask "ghostty"         # GPU-accelerated terminal
-cask "alt-tab"         # Window switcher (like Windows)
+cask "ghostty"         		# GPU-accelerated terminal
+cask "alt-tab"         		# Window switcher (like Windows)
+cask "font-hack-nerd-font"	# font for terminal
+brew "starship"        		# Terminal Theme: https://github.com/starship/starship
+brew "zsh-autosuggestions"	# oh-my-zsh plugin
+brew "zsh-syntax-highlighting"	# oh-my-zsh plugin
+brew "zsh-completions"		# oh-my-zsh plugin	
 
 ########################################
 # 🌐 Web Browsers
